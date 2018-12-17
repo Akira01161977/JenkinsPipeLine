@@ -25,8 +25,7 @@ podTemplate(label: 'mypod', containers: [
         
         stage('Check running containers') {
 	            container('kubectl') {
-	                sh 'kubectl apply -f JenkinsPipeLine/httpd-basic-deployment.yaml'
-	                sh 'kubectl apply -f JenkinsPipeLine/httpd-basic-service.yaml'
+	                sh 'kubectl create -f JenkinsPipeLine/app.yaml'
 	            }
 	        }
         
