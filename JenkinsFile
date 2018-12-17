@@ -11,7 +11,7 @@ podTemplate(label: 'mypod', containers: [
         stage('Clone repository') {
             container('git') {
                 // example to show you can run docker commands when you mount the socket
-                sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
+                sh 'git clone -b master https://github.com/Akira01161977/JenkinsPipeLine'
              }
         }
         
