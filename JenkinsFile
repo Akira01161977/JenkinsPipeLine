@@ -17,16 +17,16 @@ podTemplate(label: 'mypod', containers: [
                 sh 'git clone -b master https://github.com/Akira01161977/JenkinsPipeLine'
                 sh 'pwd'
                 sh 'ls'
+                sh 'ls JenkinsPipeLine/'
+	        
             }
         }
 
         stage('creo Imagine') {
 	            container('docker') {
 	                // example to show you can run docker commands when you mount the socket
-	                sh 'hostname'
-	                sh 'hostname -i'
 	                sh 'pwd'
-	                sh 'ls'
+	                sh 'ls JenkinsPipeLine/'
 	                sh 'docker build --tag myAPP JenkinsPipeLine/.'
 	            }
 	        }
