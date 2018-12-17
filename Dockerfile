@@ -6,7 +6,7 @@ RUN apt-get -y upgrade
 
 
 # Install apache, PHP, and supplimentary programs. curl and lynx-cur are for debugging the container.
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y install apache2 php7.0 libapache2-mod-php7.0 php7.0-curl php7.0-json php7.0-cgi
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/php && apt-get update && apt-get -y install apache2 php7.0 libapache2-mod-php7.0 php7.0-curl php7.0-json php7.0-cgi
 
 # Enable apache mods.
 RUN php5enmod openssl
