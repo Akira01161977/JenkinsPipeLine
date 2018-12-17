@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-image_srv
+  name: myimagesrv
   labels:
     app: my-image 
 spec:
