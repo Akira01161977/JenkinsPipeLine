@@ -12,21 +12,12 @@ podTemplate(label: 'mypod', containers: [
         
         stage('Clone repository') {
             container('git') {
-                sh 'whoami'
-                sh 'hostname -i'
                 sh 'git clone -b master https://github.com/Akira01161977/JenkinsPipeLine'
-                sh 'pwd'
-                sh 'ls'
-                sh 'ls JenkinsPipeLine/'
-	        
             }
         }
 
         stage('creo Imagine') {
 	            container('docker') {
-	                // example to show you can run docker commands when you mount the socket
-	                sh 'pwd'
-	                sh 'ls JenkinsPipeLine/'
 	                sh 'docker build -t default/my-image:1.0 JenkinsPipeLine/.'
 	            }
 	        }
