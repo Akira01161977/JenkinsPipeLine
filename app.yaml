@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: default/my-image:1.4
+        image: default/my-image:1.5
         ports:
         - containerPort: 80
