@@ -9,31 +9,33 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
-        stage('Check running containers') {
-            container('kubectl') {
-                // example to show you can run docker commands when you mount the socket
-                sh 'hostname'
-                sh 'hostname -i'
-                sh 'kubectl get pods'
-            }
-        }
         
         stage('Clone repository') {
             container('git') {
                 sh 'whoami'
                 sh 'hostname -i'
-                sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
+                sh 'git clone -b master https://github.com/Akira01161977/JenkinsPipeLine'
             }
         }
 
-        stage('Maven Build') {
-            container('maven') {
-                dir('hello-world-war/') {
-                    sh 'hostname'
-                    sh 'hostname -i'
-                    sh 'mvn clean install'
-                }
-            }
-        }
+        stage('creo Imagine') {
+	            container('kubectl') {
+	                // example to show you can run docker commands when you mount the socket
+	                sh 'hostname'
+	                sh 'hostname -i'
+	                sh 'docker build Dockerfile .'
+	            }
+	        }
+        
+        
+        stage('Check running containers') {
+	            container('kubectl') {
+	                // example to show you can run docker commands when you mount the socket
+	                sh 'hostname'
+	                sh 'hostname -i'
+	                sh 'kubectl get pods'
+	            }
+	        }
+        
     }
 }s
