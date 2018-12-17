@@ -27,7 +27,7 @@ podTemplate(label: 'mypod', containers: [
 	                sh 'hostname -i'
 	                sh 'pwd'
 	                sh 'cd JenkinsPipeLine'
-	                sh 'docker build Dockerfile .'
+	                sh 'docker build -t myAPP:1.0 Dockerfile .'
 	            }
 	        }
         
