@@ -27,10 +27,10 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 EXPOSE 80
 
 # Copy site into place.
-ADD JenkinsPipeLine/app /var/www/site/app
+ADD app /var/www/site/app
 
 # Update the default apache site with the config we created.
-ADD JenkinsPipeLine/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
 # By default, simply start apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
