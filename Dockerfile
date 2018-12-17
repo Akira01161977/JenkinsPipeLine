@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 MAINTAINER Dhanu Gupta <dhanu.gupta@gmail.com>
 
+RUN add-apt-repository ppa:ondrej/php
 RUN apt-get update
 RUN apt-get -y upgrade
 
