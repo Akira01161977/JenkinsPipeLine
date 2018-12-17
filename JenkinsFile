@@ -8,12 +8,23 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('git') {
-        stage('Check running containers') {
-            container('kubectl') {
+        stage('Clone repository') {
+            container('git') {
                 // example to show you can run docker commands when you mount the socket
                 sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
-                sh 'docker buil DockerFile .'
-            }
+             }
+        }
+        
+        stage('Create Image') {
+	    container('docker') {
+		sh 'docker build Dockerfile .'
+	    }
+        }
+        
+        stage('Create pod') {
+	    container('kubectl') {
+		sh 'kubectl apply -f deployment.yam'
+	    }
         }
         
     }
