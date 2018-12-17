@@ -25,11 +25,8 @@ podTemplate(label: 'mypod', containers: [
         
         stage('Check running containers') {
 	            container('kubectl') {
-	                // example to show you can run docker commands when you mount the socket
-	                sh 'hostname'
-	                sh 'hostname -i'
-	                sh 'kubectl appy -f JenkinsPipeLine/httpd-basic-deployment.yaml'
-	                sh 'kubectl appy -f JenkinsPipeLine/httpd-basic-service.yaml'
+	                sh 'kubectl apply -f JenkinsPipeLine/httpd-basic-deployment.yaml'
+	                sh 'kubectl apply -f JenkinsPipeLine/httpd-basic-service.yaml'
 	            }
 	        }
         
