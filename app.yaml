@@ -3,32 +3,32 @@ kind: Service
 metadata:
   name: myimagesrv
   labels:
-    app: my-image 
+    app: my-app 
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: nginx
+    app: my-app
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-app
   labels:
-    app: my-image 
+    app: my-app 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-image 
+      app: my-app 
   template:
     metadata:
       labels:
-        app: my-image 
+        app: my-app 
     spec:
       containers:
-      - name: my-image
+      - name: my-app
         image: default/my-image:1.0
         ports:
         - containerPort: 80
