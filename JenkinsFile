@@ -27,7 +27,7 @@ podTemplate(label: 'mypod', containers: [
 	                // example to show you can run docker commands when you mount the socket
 	                sh 'pwd'
 	                sh 'ls JenkinsPipeLine/'
-	                sh 'docker build --tag myAPP JenkinsPipeLine/.'
+	                sh 'docker build -t default/my-image:1.0 JenkinsPipeLine/.'
 	            }
 	        }
         
