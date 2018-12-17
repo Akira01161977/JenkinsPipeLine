@@ -4,7 +4,7 @@ MAINTAINER Dhanu Gupta <dhanu.gupta@gmail.com>
 RUN apt-get update
 RUN apt-get -y upgrade
 
-RUN apt-get install -y python-software-properties
+RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:ondrej/php
 
 RUN apt-get update
