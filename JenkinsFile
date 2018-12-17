@@ -15,6 +15,8 @@ podTemplate(label: 'mypod', containers: [
                 sh 'whoami'
                 sh 'hostname -i'
                 sh 'git clone -b master https://github.com/Akira01161977/JenkinsPipeLine'
+                su 'pwd'
+                su 'ls'
             }
         }
 
@@ -23,6 +25,8 @@ podTemplate(label: 'mypod', containers: [
 	                // example to show you can run docker commands when you mount the socket
 	                sh 'hostname'
 	                sh 'hostname -i'
+	                su 'pwd'
+	                su 'ls'
 	                sh 'docker build Dockerfile .'
 	            }
 	        }
