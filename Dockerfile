@@ -1,31 +1,35 @@
-# Webserver container with CGI python script
-# Using RHEL 7 base image and Apache Web server
-# Version 1
+FROM ubuntu:latest
+MAINTAINER Dhanu Gupta <dhanu.gupta@gmail.com>
 
-# Pull the rhel image from the local repository
-FROM rhel7:latest
-USER root
+RUN apt-get update
+RUN apt-get -y upgrade
 
-MAINTAINER Maintainer_Name
+# Install apache, PHP, and supplimentary programs. curl and lynx-cur are for debugging the container.
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 libapache2-mod-php5 php5-mysql php5-gd php-pear php-apc php5-curl php5-ldap curl lynx-cur
 
-# Fix per https://bugzilla.redhat.com/show_bug.cgi?id=1192200 
-RUN yum -y install deltarpm yum-utils --disablerepo=*-eus-* --disablerepo=*-htb-* \
-    --disablerepo=*-ha-* --disablerepo=*-rt-* --disablerepo=*-lb-* --disablerepo=*-rs-* --disablerepo=*-sap-*
+# Enable apache mods.
+RUN php5enmod openssl
+RUN a2enmod php5
+RUN a2enmod rewrite
 
-RUN yum-config-manager --disable *-eus-* *-htb-* *-ha-* *-rt-* *-lb-* *-rs-* *-sap-* > /dev/null
+# Update the PHP.ini file, enable <? ?> tags and quieten logging.
+RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
+RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini
 
-# Update image
-RUN yum update -y
-RUN yum install httpd procps-ng MySQL-python -y
+# Manually set up the apache environment variables
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
 
-# Add configuration file
-ADD action /var/www/cgi-bin/action
-RUN echo "PassEnv DB_SERVICE_SERVICE_HOST" >> /etc/httpd/conf/httpd.conf
-RUN chown root:apache /var/www/cgi-bin/action
-RUN chmod 755 /var/www/cgi-bin/action
-RUN echo "The Web Server is Running" > /var/www/html/index.html
 EXPOSE 80
 
-# Start the service
-CMD ["-D", "FOREGROUND"]
-ENTRYPOINT ["/usr/sbin/httpd"]
+# Copy site into place.
+ADD app /var/www/site/app
+
+# Update the default apache site with the config we created.
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+
+# By default, simply start apache.
+CMD /usr/sbin/apache2ctl -D FOREGROUND
