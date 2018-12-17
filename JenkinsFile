@@ -1,5 +1,6 @@
 podTemplate(label: 'mypod', containers: [
     containerTemplate(name: 'git', image: 'alpine/git', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
   ],
@@ -7,25 +8,32 @@ podTemplate(label: 'mypod', containers: [
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
   ]
   ) {
-    node('git') {
+    node('mypod') {
+        stage('Check running containers') {
+            container('kubectl') {
+                // example to show you can run docker commands when you mount the socket
+                sh 'hostname'
+                sh 'hostname -i'
+                sh 'kubectl get pods'
+            }
+        }
+        
         stage('Clone repository') {
             container('git') {
-                // example to show you can run docker commands when you mount the socket
-                sh 'git clone -b master https://github.com/Akira01161977/JenkinsPipeLine'
-             }
+                sh 'whoami'
+                sh 'hostname -i'
+                sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
+            }
         }
-        
-        stage('Create Image') {
-	    container('docker') {
-		sh 'docker build Dockerfile .'
-	    }
+
+        stage('Maven Build') {
+            container('maven') {
+                dir('hello-world-war/') {
+                    sh 'hostname'
+                    sh 'hostname -i'
+                    sh 'mvn clean install'
+                }
+            }
         }
-        
-        stage('Create pod') {
-	    container('kubectl') {
-		sh 'kubectl apply -f deployment.yam'
-	    }
-        }
-        
     }
-}
+}s
