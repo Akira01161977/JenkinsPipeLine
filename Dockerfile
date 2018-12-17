@@ -1,4 +1,4 @@
-FROM ubuntu:ubuntu:16.04
+FROM ubuntu:16.04
 MAINTAINER Dhanu Gupta <dhanu.gupta@gmail.com>
 
 RUN apt-get update
