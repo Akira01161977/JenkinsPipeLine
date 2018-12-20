@@ -18,6 +18,8 @@ podTemplate(label: 'mypod', containers: [
         stage('creo Imagine') {
 	            container('docker') {
 	                sh 'docker build -t default/my-image:1.9 JenkinsPipeLine/.'
+	                sh 'docker build -t default/mssql:1.9 -f JenkinsPipeLine/DockerfileMSSql.'
+	                
 	            }
 	        }
         
@@ -25,6 +27,9 @@ podTemplate(label: 'mypod', containers: [
         stage('Build containers') {
 	            container('kubectl') {
 	                sh 'kubectl apply -f JenkinsPipeLine/app.yaml'
+	                sh 'kubectl apply -f JenkinsPipeLine/MSSQL_YAML/pvc.yaml'
+	                sh 'kubectl apply -f JenkinsPipeLine/MSSQL_YAML/sqldeployment.yaml'
+	                
 	            }
 	        }
         

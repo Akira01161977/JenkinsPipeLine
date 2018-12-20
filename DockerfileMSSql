@@ -1,0 +1,6 @@
+FROM microsoft/mssql-server-linux:2017-CU8
+
+ENV sa_password toor
+COPY db-scripts/create-db.sql .
+
+RUN (sqlcmd -S localhost -U SA -P tor -i create-db.sql)
