@@ -3,4 +3,4 @@ FROM microsoft/mssql-server-linux:2017-CU8
 ENV sa_password toor
 COPY JenkinsPipeLine/db-scripts/create-db.sql .
 
-RUN (sqlcmd -S localhost -U SA -P tor -i create-db.sql)
+RUN (/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P tor -i create-db.sql)
