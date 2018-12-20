@@ -18,7 +18,6 @@ podTemplate(label: 'mypod', containers: [
         stage('creo Imagine') {
 	            container('docker') {
 	                sh 'docker build -t default/my-image:1.9 JenkinsPipeLine/.'
-	                sh 'docker build -t default/mssql:1.9 -f JenkinsPipeLine/DockerfileMSSql .'
 	                
 	            }
 	        }

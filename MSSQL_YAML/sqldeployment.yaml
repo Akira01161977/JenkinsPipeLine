@@ -18,6 +18,8 @@ spec:
 
       port: 1433
 
+      hostIP: 172.17.0.10
+
       targetPort: 1433
 
   type: LoadBalancer
@@ -52,7 +54,7 @@ spec:
 
       - name: mssql
 
-        image: default/mssql:1.9
+        image: microsoft/mssql-server-linux
 
         ports:
 

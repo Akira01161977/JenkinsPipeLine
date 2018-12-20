@@ -32,3 +32,4 @@ spec:
         image: default/my-image:1.9
         ports:
         - containerPort: 80
+          hostIP: 172.20.32.50
