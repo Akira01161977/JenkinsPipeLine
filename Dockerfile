@@ -1,7 +1,5 @@
 FROM polinux/httpd-php
 
-RUM yum install -y epel-release
-RUN yum install -y php-mssql
 # Copy site into place.
 ADD app /var/www/html/
 
