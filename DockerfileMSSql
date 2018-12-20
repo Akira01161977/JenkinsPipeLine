@@ -2,4 +2,6 @@ FROM microsoft/mssql-server-linux:2017-CU8
 
 ENV sa_password toor
 COPY JenkinsPipeLine/db-scripts/create-db.sql .
+RUN pwd
+RUN ls -ql
 RUN ( /opt/mssql/bin/sqlservr --accept-eula & ) | sleep 10 | /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'P@ssw0rd' -i create_db.sql | pkill sqlservr 
