@@ -4,4 +4,4 @@ ENV sa_password toor
 COPY JenkinsPipeLine/db-scripts/create-db.sql .
 RUN pwd
 RUN ls -ql
-RUN ( /opt/mssql/bin/sqlservr --accept-eula & ) 
+RUN ( /opt/mssql/bin/sqlservr --accept-eula ) 
